@@ -9,12 +9,14 @@ namespace CardGame.Controllers
 {
     public class PlayerController : MonoBehaviour, IPlayerController
     {
+        [SerializeField] LayerMask _layerMask;
         [SerializeField] int _totalScore;
         [SerializeField] bool _canPlay = false;
 
         public IWorldPositionHandler WorldPositionHandler { get; private set; }
         public IInputReader InputReader { get; private set; }
         public Camera Camera { get; private set; }
+        public LayerMask LayerMask => _layerMask;
         public int CurrentScore => _totalScore;
         public event System.Action<int> OnSuccessMatching;
 

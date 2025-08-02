@@ -7,5 +7,6 @@ namespace CardGame.Abstracts.Controllers
     {
         IInputReader InputReader { get; }
         Camera Camera { get; }
+        LayerMask LayerMask { get; }
     }
 }

@@ -15,13 +15,11 @@ namespace CardGame.Handlers
         
         public ICardController ExecuteGetWorldPosition()
         {
-            Vector3 worldPosition = _playerController.Camera.ScreenToWorldPoint(_playerController.InputReader.TouchPosition);
-            worldPosition = new Vector3(worldPosition.x, worldPosition.y, 0f);
-
-            var raycastHit = Physics2D.Raycast(worldPosition, Vector2.zero, 1f);
-            if(raycastHit.collider != null)
+            Vector2 worldPoint = _playerController.Camera.ScreenToWorldPoint(_playerController.InputReader.TouchPosition);
+            RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero, 1f, _playerController.LayerMask);
+            if(hit.collider != null)
             {
-                if (raycastHit.collider.TryGetComponent(out ICardController cardController))
+                if (hit.collider.TryGetComponent(out ICardController cardController))
                 {
                     if (cardController.IsFront) return null;
                     
