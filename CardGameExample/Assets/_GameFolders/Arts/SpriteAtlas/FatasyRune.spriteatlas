@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FatasyRune
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 4096
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 0dc9901429612ff42a6746f278375a74, type: 3}
+    - {fileID: 2800000, guid: 4b119496574594c4db61e068506a1fc7, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: ca93e6f0f9aace44092265d27f08be56, type: 3}
+  - {fileID: 21300000, guid: 5e74c141cea96274183542d7a16eae86, type: 3}
+  - {fileID: 21300000, guid: 239f5b5123b8cf4469f23bcbcf2ad003, type: 3}
+  - {fileID: 21300000, guid: dcf275c129dc67d45935da34a78f8abf, type: 3}
+  - {fileID: 21300000, guid: 0ad8d0339ace75c48bd089f0d4ca2967, type: 3}
+  - {fileID: 21300000, guid: 4ebcfe14697dc264ca4bb9eda224603b, type: 3}
+  - {fileID: 21300000, guid: 0c151b841473a9d41b58e6d82424ec1e, type: 3}
+  - {fileID: 21300000, guid: 11212e94e6e4e8241b4f9bd397a880b6, type: 3}
+  - {fileID: 21300000, guid: e01b08a423ab8cc45aa2e74a53d790ac, type: 3}
+  - {fileID: 21300000, guid: d68f14d59e28a114b9662fc3e14b1b39, type: 3}
+  - {fileID: 7482667652216324306, guid: 4b119496574594c4db61e068506a1fc7, type: 3}
+  - {fileID: 21300000, guid: 08355d96146a6f545894ae87e1575c0d, type: 3}
+  - {fileID: 21300000, guid: fb2d81178da67a94db5fd1dd7f2021e9, type: 3}
+  - {fileID: 21300000, guid: 071e04186d142124badecf4fd3b67179, type: 3}
+  - {fileID: 21300000, guid: 51e5d50918b8cd34b922c9663cbd1701, type: 3}
+  - {fileID: 21300000, guid: 122dd02921ca9c3449cbaead280e2838, type: 3}
+  - {fileID: 21300000, guid: 1692f029d30587f4e89cd7a3749a1af4, type: 3}
+  - {fileID: 21300000, guid: 479b6a7b48651364995e7908a7590392, type: 3}
+  - {fileID: 21300000, guid: b5ff958b6de8a284ebaa3abb2a6763cc, type: 3}
+  - {fileID: 21300000, guid: 1450f59be3a419048b785dec4ae84c7b, type: 3}
+  - {fileID: 21300000, guid: d066a4acf75b2d745952032b2d4e758d, type: 3}
+  - {fileID: 21300000, guid: 19c888dc0109b6f4181c196fd0ff82d8, type: 3}
+  - {fileID: 21300000, guid: d3a6802eead02714d93d3c9edae1ac89, type: 3}
+  - {fileID: 21300000, guid: e104065eb9289654796ee8ce85ba143d, type: 3}
+  - {fileID: 21300000, guid: 07cb25ef13481ae4ebd371ef060c3d1b, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Badges_14
+  - Badges_01
+  - Badges_17
+  - Badges_07
+  - Badges_08
+  - Badges_04
+  - Badges_02
+  - Badges_15
+  - Badges_05
+  - Badges_19
+  - Square
+  - Badges_16
+  - Badges_12
+  - Badges_13
+  - Badges_20
+  - Badges_23
+  - Badges_06
+  - Badges_10
+  - Badges_09
+  - Badges_18
+  - Badges_22
+  - Badges_21
+  - Badges_24
+  - Badges_03
+  - Badges_11
+  m_RenderDataMap: {}
+  m_Tag: FatasyRune
+  m_IsVariant: 0

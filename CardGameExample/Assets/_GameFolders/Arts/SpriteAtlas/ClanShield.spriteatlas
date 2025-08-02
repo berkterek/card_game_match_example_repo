@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ClanShield
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 8192
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 4a6bfd64674775d4c9a2cc9573839788, type: 3}
+    - {fileID: 2800000, guid: 4b119496574594c4db61e068506a1fc7, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: e2a2f2a1d9a56a245bdef8b0e248f731, type: 3}
+  - {fileID: 21300000, guid: c27c26b15da9ca04d9a9a19c691ecde7, type: 3}
+  - {fileID: 21300000, guid: 041dbf132ee34e3428bab1501f15ca2f, type: 3}
+  - {fileID: 21300000, guid: 89f18ff36451f27438383cd761ca955b, type: 3}
+  - {fileID: 21300000, guid: 2cb09544ee197f04abf35375b5c92c44, type: 3}
+  - {fileID: 21300000, guid: 975ee07479f2e594da5dd91822004414, type: 3}
+  - {fileID: 21300000, guid: 88e3d5553ab60ed46bf8c4530fae0617, type: 3}
+  - {fileID: 21300000, guid: 523ebde51ddac6347902cc74d2ed3e7a, type: 3}
+  - {fileID: 21300000, guid: 36c6c63612cb1ca4da53d2fd9622b363, type: 3}
+  - {fileID: 21300000, guid: 43669b46667ff4346ac4266e3eef86d5, type: 3}
+  - {fileID: 7482667652216324306, guid: 4b119496574594c4db61e068506a1fc7, type: 3}
+  - {fileID: 21300000, guid: 8fd8de2789a4d534983eaa4cdc89a90f, type: 3}
+  - {fileID: 21300000, guid: 0ad712f7fae43ff4cb0d740325b7a576, type: 3}
+  - {fileID: 21300000, guid: 521ef04a714b15042866fcf2b7210d14, type: 3}
+  - {fileID: 21300000, guid: 09b8306a9eab4a04c94faa55dd017434, type: 3}
+  - {fileID: 21300000, guid: 7b47327a5bd92f542b32f42d26d37af8, type: 3}
+  - {fileID: 21300000, guid: 9ec7536beb8616944a60398b9dadcbb2, type: 3}
+  - {fileID: 21300000, guid: 2924bc8b0271bfd48a1d7550795bed55, type: 3}
+  - {fileID: 21300000, guid: 1f17ca5e071d45949bb73ac408479f08, type: 3}
+  - {fileID: 21300000, guid: 267e1ecea0e96274982ba2df27a83da3, type: 3}
+  - {fileID: 21300000, guid: 1a8dc6de87c04764e8baeb9a6b0e4ff3, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - b_09
+  - b_19
+  - b_15
+  - b_02
+  - b_14
+  - b_10
+  - b_03
+  - b_11
+  - b_04
+  - b_01
+  - Square
+  - b_05
+  - b_08
+  - b_07
+  - b_18
+  - b_13
+  - b_20
+  - b_12
+  - b_16
+  - b_06
+  - b_17
+  m_RenderDataMap: {}
+  m_Tag: ClanShield
+  m_IsVariant: 0
