@@ -26,7 +26,6 @@ namespace CardGame.Managers
 
         Queue<CardController> _firstCardControllers;
         int _currentCombo;
-        IPlayerController _playerController;
         DeckName _tempDeck;
 
         public event System.Action<int> OnSuccessMatching;
@@ -60,7 +59,7 @@ namespace CardGame.Managers
         {
             _playerPlayCount = 0;
             _currentCombo = _comboStart;
-            _playerController.ResetTotalValue();
+            GameManager.Instance.PlayerController.ResetTotalValue();
             CleanCards();
             int maxCount = _xLoopCount * _yLoopCount;
             _cards = new List<CardController>(maxCount);
@@ -107,7 +106,7 @@ namespace CardGame.Managers
             _playerPlayCount = model.PlayerPlayCount;
             OnPlayerPlayCount?.Invoke(_playerPlayCount);
             _currentCombo = model.CurrentCombo;
-            _playerController.ResetTotalValue();
+            GameManager.Instance.PlayerController.ResetTotalValue();
             var score = model.CurrentScore;
             OnSuccessMatching?.Invoke(score);
 
@@ -228,7 +227,7 @@ namespace CardGame.Managers
                 model.DeckName = _tempDeck;
                 model.CurrentCombo = _currentCombo;
                 model.PlayerPlayCount = _playerPlayCount;
-                model.CurrentScore = _playerController.CurrentScore;
+                model.CurrentScore = GameManager.Instance.PlayerController.CurrentScore;
                 model.CardDataModels = new List<CardDataModel>();
                 foreach (CardController cardController in _cards)
                 {
