@@ -9,6 +9,7 @@ namespace CardGame.Abstracts.Controllers
         Camera Camera { get; }
         LayerMask LayerMask { get; }
         int CurrentScore { get; }
+        event System.Action<int> OnSuccessMatching;
         void ResetTotalValue();
         void PlayerCanPlay();
         void PlayerCantPlay();

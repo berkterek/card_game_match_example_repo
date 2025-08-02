@@ -17,6 +17,7 @@ namespace CardGame.Managers
         public event System.Action<int,int> OnGameEnded;
         public event System.Action OnGameStarted;
         public event System.Action OnReturnMenu;
+        public IPlayerController PlayerController => _playerController;
 
         void Start()
         {
