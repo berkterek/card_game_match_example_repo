@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using CardGame.Abstracts.Controllers;
@@ -27,8 +26,6 @@ namespace CardGame.Managers
 
         Queue<CardController> _firstCardControllers;
         int _currentCombo;
-        //IGameService _gameService;
-        //ISaveLoadService _saveLoadService;
         IPlayerController _playerController;
         DeckName _tempDeck;
 
@@ -102,10 +99,10 @@ namespace CardGame.Managers
 
         public void LoadLastGameCards()
         {
-            // if (!_saveLoadService.HasKeyAvailable(CARD_MANAGER_KEY)) return;
+            var saveLoadManager = SaveLoadManager.Singleton();
+            if (!saveLoadManager.HasKeyAvailable(ConstHelper.CARD_MANAGER_KEY)) return;
 
-            // DeckDataModel model = _saveLoadService.LoadDataProcess<DeckDataModel>(CARD_MANAGER_KEY);
-            DeckDataModel model = new DeckDataModel();
+            var model = saveLoadManager.LoadDataProcess<DeckDataModel>(ConstHelper.CARD_MANAGER_KEY);
 
             _playerPlayCount = model.PlayerPlayCount;
             OnPlayerPlayCount?.Invoke(_playerPlayCount);
@@ -211,12 +208,13 @@ namespace CardGame.Managers
 
                 if (_cards.Count <= 0)
                 {
-                    // if (_saveLoadService.HasKeyAvailable(CARD_MANAGER_KEY))
-                    // {
-                    //     _saveLoadService.DeleteData(CARD_MANAGER_KEY);
-                    // }
+                    var saveLoadManager = SaveLoadManager.Singleton();
+                    if (saveLoadManager.HasKeyAvailable(ConstHelper.CARD_MANAGER_KEY))
+                    {
+                        saveLoadManager.DeleteData(ConstHelper.CARD_MANAGER_KEY);
+                    }
 
-                    //_soundService.Play(SoundType.Finished);
+                    SoundManager.Instance.Play(SoundType.Finished);
                     OnGameOvered?.Invoke();
                 }
             }
@@ -242,7 +240,8 @@ namespace CardGame.Managers
                     });
                 }
 
-                //_saveLoadService.SaveDataProcess(CARD_MANAGER_KEY, model);
+                var saveLoadManager = SaveLoadManager.Singleton();
+                saveLoadManager.SaveDataProcess(ConstHelper.CARD_MANAGER_KEY, model);
             }
         }
     }
