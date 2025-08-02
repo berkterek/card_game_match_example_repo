@@ -22,6 +22,7 @@ namespace CardGame.Managers
         [SerializeField] float _yOffset;
         [SerializeField] int _playerPlayCount;
         [SerializeField] int _comboStart = 1;
+        [SerializeField] Transform _transform;
         [SerializeField] List<CardController> _cards;
 
         Queue<CardController> _firstCardControllers;
@@ -31,6 +32,11 @@ namespace CardGame.Managers
         public event System.Action<int> OnSuccessMatching;
         public event System.Action<int> OnPlayerPlayCount;
         public event System.Action OnGameOvered;
+
+        void OnValidate()
+        {
+            this.GetReference(ref _transform);
+        }
 
         protected override void Awake()
         {
@@ -87,7 +93,7 @@ namespace CardGame.Managers
             {
                 for (int j = 0; j < _yLoopCount; j++)
                 {
-                    var cardController = Instantiate(_prefab, transform);
+                    var cardController = Instantiate(_prefab, _transform);
                     cardController.Transform.localPosition = new Vector3(i * _xOffset, j * _yOffset, 0);
                     cardController.SetDataContainer(allDataContainers[index]);
                     _cards.Add(cardController);
@@ -128,7 +134,7 @@ namespace CardGame.Managers
 
             for (int i = 0; i < loadedList.Count; i++)
             {
-                var cardController = Instantiate(_prefab, transform);
+                var cardController = Instantiate(_prefab, _transform);
                 cardController.Transform.localPosition = new Vector3(model.CardDataModels[i].XPosition,
                     model.CardDataModels[i].YPosition, 0f);
                 cardController.SetDataContainer(loadedList[i]);
@@ -139,9 +145,9 @@ namespace CardGame.Managers
         void CleanCards()
         {
             _cards = null;
-            while (transform.childCount > 0)
+            while (_transform.childCount > 0)
             {
-                DestroyImmediate(transform.GetChild(0).gameObject);
+                DestroyImmediate(_transform.GetChild(0).gameObject);
             }
         }
 
