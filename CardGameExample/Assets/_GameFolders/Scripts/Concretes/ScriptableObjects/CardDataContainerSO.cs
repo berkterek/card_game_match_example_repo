@@ -15,5 +15,12 @@ namespace CardGame.ScriptableObjects
         public Sprite CardSprite => _cardSprite;
         public int CardScore => _cardScore;
         public CardStatsSO CardStats => _cardStats;
+
+        public void SetEditorBuild(Sprite sprite, CardType cardType, int score = 1)
+        {
+            _cardSprite = sprite;
+            _cardType = cardType;
+            _cardScore = score;
+        }
     }
 }
