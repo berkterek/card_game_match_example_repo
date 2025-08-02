@@ -2,6 +2,7 @@ using System.Collections;
 using CardGame.Abstracts.Uis;
 using CardGame.Helpers;
 using CardGame.Managers;
+using UnityEngine;
 
 namespace CardGame.Uis
 {
@@ -32,8 +33,14 @@ namespace CardGame.Uis
 
         void HandleOnReturnMenu()
         {
+            StartCoroutine(HandleOnReturnMenuDelay());
+        }
+
+        IEnumerator HandleOnReturnMenuDelay()
+        {
+            yield return new WaitForSeconds(1f);
             var saveLoadManager = SaveLoadManager.Singleton();
-            _button.interactable = saveLoadManager.HasKeyAvailable(ConstHelper.CARD_MANAGER_KEY);   
+            _button.interactable = saveLoadManager.HasKeyAvailable(ConstHelper.CARD_MANAGER_KEY); 
         }
 
         protected override void HandleOnButtonClicked()
