@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CardGame.Abstracts.Controllers;
@@ -8,6 +9,7 @@ using CardGame.ScriptableObjects;
 using UnityEngine;
 using System.Collections;
 using CardGame.Abstracts.Helpers;
+using Random = UnityEngine.Random;
 
 namespace CardGame.Managers
 {
@@ -25,7 +27,6 @@ namespace CardGame.Managers
 
         Queue<CardController> _firstCardControllers;
         int _currentCombo;
-        //ISoundService _soundService;
         //IGameService _gameService;
         //ISaveLoadService _saveLoadService;
         IPlayerController _playerController;
@@ -39,6 +40,23 @@ namespace CardGame.Managers
         {
             base.Awake();
             _firstCardControllers = new Queue<CardController>();
+        }
+
+        void OnEnable()
+        {
+            StartCoroutine(InitEvents());
+        }
+
+        void OnDisable()
+        {
+            if (GameManager.Instance == null) return;
+            GameManager.Instance.OnReturnMenu -= HandleOnReturnMenu;
+        }
+
+        IEnumerator InitEvents()
+        {
+            while (GameManager.Instance == null) yield return null;
+            GameManager.Instance.OnReturnMenu += HandleOnReturnMenu;
         }
 
         public void CreateCards()
@@ -159,13 +177,13 @@ namespace CardGame.Managers
             {
                 _firstCardControllers.Enqueue(cardController as CardController);
                 cardController.RotateCard();
-                //_soundService.Play(SoundType.Flip);
+                SoundManager.Instance.Play(SoundType.Flip);
             }
             else
             {
                 var secondCardController = cardController as CardController;
                 secondCardController.RotateCard();
-                //_soundService.Play(SoundType.Flip);
+                SoundManager.Instance.Play(SoundType.Flip);
                 var firstCard = _firstCardControllers.Dequeue();
 
                 if (firstCard.CardDataContainer.CardType == secondCardController.CardDataContainer.CardType)
@@ -177,7 +195,7 @@ namespace CardGame.Managers
                     Destroy(firstCard.gameObject);
                     Destroy(secondCardController.gameObject);
                     _currentCombo++;
-                    //_soundService.Play(SoundType.Success);
+                    SoundManager.Instance.Play(SoundType.Success);
                 }
                 else
                 {
@@ -185,7 +203,7 @@ namespace CardGame.Managers
                     firstCard.RotateCard();
                     secondCardController.RotateCard();
                     _currentCombo = _comboStart;
-                    //_soundService.Play(SoundType.Failed);
+                    SoundManager.Instance.Play(SoundType.Failed);
                 }
 
                 _playerPlayCount++;
