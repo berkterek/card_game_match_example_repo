@@ -49,7 +49,7 @@ namespace CardGame.Managers
             _playerController = playerController;
         }
 
-        public IEnumerator GameStart()
+        public IEnumerator GameStartCoroutine()
         {
             OnGameStarted?.Invoke();
             CardManager.Instance.CreateCards();
@@ -58,7 +58,7 @@ namespace CardGame.Managers
             _playerController.PlayerCanPlay();
         }
 
-        public IEnumerator LoadLastGame()
+        public IEnumerator LoadLastGameCoroutine()
         {
             OnGameStarted?.Invoke();
             CardManager.Instance.LoadLastGameCards();
