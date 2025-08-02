@@ -34,6 +34,9 @@ namespace CardGame.Controllers
             while (GameManager.Instance == null) yield return null;
             
             GameManager.Instance.Init(this);
+
+            while (CardManager.Instance == null) yield return null;
+            CardManager.Instance.OnSuccessMatching += HandleOnSuccessMatching;
         }
 
         public void Update()
@@ -42,6 +45,7 @@ namespace CardGame.Controllers
 
             var cardController = WorldPositionHandler.ExecuteGetWorldPosition();
             if (cardController == null) return;
+            CardManager.Instance.MatchCards(cardController);
         }
 
         public void PlayerCanPlay()

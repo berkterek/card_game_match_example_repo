@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 438900830}
   - component: {fileID: 438900831}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpriteInside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2045986485}
   - component: {fileID: 2045986486}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 1392689403156295884}
   - component: {fileID: 1392689403156295885}
   - component: {fileID: 1150272172}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}

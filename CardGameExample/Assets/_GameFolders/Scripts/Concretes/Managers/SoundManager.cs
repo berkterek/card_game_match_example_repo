@@ -12,8 +12,9 @@ namespace CardGame.Managers
         
         Dictionary<SoundType, SoundController> _soundDictionary;
 
-        void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _soundDictionary = new Dictionary<SoundType, SoundController>();
             foreach (var soundInspectorHolder in _sounds)
             {

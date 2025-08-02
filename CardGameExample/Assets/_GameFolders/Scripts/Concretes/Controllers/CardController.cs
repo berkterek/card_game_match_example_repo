@@ -18,7 +18,7 @@ namespace CardGame.Controllers
 
         void OnValidate()
         {
-            this.GetReference<Transform>(ref _transform);
+            this.GetReference(ref _transform);
         }
 
         public void SetDataContainer(CardDataContainerSO cardDataContainer)
