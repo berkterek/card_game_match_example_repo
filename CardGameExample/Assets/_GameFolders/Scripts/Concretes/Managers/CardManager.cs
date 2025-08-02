@@ -16,10 +16,11 @@ namespace CardGame.Managers
     {
         [SerializeField] CardController _prefab;
         [SerializeField] DeckValue[] _decks;
-        [SerializeField] int _xLoopCount = 4;
-        [SerializeField] int _yLoopCount = 4;
-        [SerializeField] float _xOffset;
-        [SerializeField] float _yOffset;
+        [SerializeField] int _columns = 4;
+        [SerializeField] int _rows = 4;
+        [SerializeField] Vector2 _gridSpacing = new Vector2(0.1f, 0.1f);
+        [SerializeField] Vector2 _gridTargetSize = new Vector2(10f, 10f);
+        [SerializeField] float _screenMargin = 0.1f;
         [SerializeField] int _playerPlayCount;
         [SerializeField] int _comboStart = 1;
         [SerializeField] Transform _transform;
@@ -28,6 +29,7 @@ namespace CardGame.Managers
         Queue<CardController> _firstCardControllers;
         int _currentCombo;
         DeckName _tempDeck;
+        Camera _mainCamera;
 
         public event System.Action<int> OnSuccessMatching;
         public event System.Action<int> OnPlayerPlayCount;
@@ -41,6 +43,7 @@ namespace CardGame.Managers
         protected override void Awake()
         {
             base.Awake();
+            _mainCamera = Camera.main;
             _firstCardControllers = new Queue<CardController>();
         }
 
@@ -60,6 +63,12 @@ namespace CardGame.Managers
             while (GameManager.Instance == null) yield return null;
             GameManager.Instance.OnReturnMenu += HandleOnReturnMenu;
         }
+        
+        public void SetGridLayout(int columns, int rows)
+        {
+            _columns = Mathf.Max(1, columns);
+            _rows = Mathf.Max(1, rows);
+        }
 
         public void CreateCards()
         {
@@ -67,7 +76,7 @@ namespace CardGame.Managers
             _currentCombo = _comboStart;
             GameManager.Instance.PlayerController.ResetTotalValue();
             CleanCards();
-            int maxCount = _xLoopCount * _yLoopCount;
+            int maxCount = _columns * _rows;
             _cards = new List<CardController>(maxCount);
 
             int randomDeck = Random.Range(0, (int)DeckName.Deck3 + 1);
@@ -87,19 +96,27 @@ namespace CardGame.Managers
             AddList(dataContainers2, allDataContainers);
 
             allDataContainers.Shuffle();
+            
+            float xOffset = (_gridTargetSize.x - (_columns + 1) * _gridSpacing.x) / _columns;
+            float yOffset = (_gridTargetSize.y - (_rows + 1) * _gridSpacing.y) / _rows;
+            float startX = -_gridTargetSize.x / 2f + xOffset / 2f + _gridSpacing.x;
+            float startY = -_gridTargetSize.y / 2f + yOffset / 2f + _gridSpacing.y;
 
             int index = 0;
-            for (int i = 0; i < _xLoopCount; i++)
+            for (int i = 0; i < _columns; i++)
             {
-                for (int j = 0; j < _yLoopCount; j++)
+                for (int j = 0; j < _rows; j++)
                 {
                     var cardController = Instantiate(_prefab, _transform);
-                    cardController.Transform.localPosition = new Vector3(i * _xOffset, j * _yOffset, 0);
+                    cardController.Transform.localPosition = new Vector3(startX + i * (xOffset + _gridSpacing.x),
+                        startY + j * (yOffset + _gridSpacing.y), 0);
                     cardController.SetDataContainer(allDataContainers[index]);
                     _cards.Add(cardController);
                     index++;
                 }
             }
+
+            AdjustGridToScreen();
         }
 
         public void LoadLastGameCards()
@@ -118,9 +135,8 @@ namespace CardGame.Managers
 
             CleanCards();
 
-            int maxCount = _xLoopCount * _yLoopCount;
+            int maxCount = _columns * _rows;
             _cards = new List<CardController>(maxCount);
-
 
             _tempDeck = model.DeckName;
             var deckValue = _decks.FirstOrDefault(x => x.DeckName == _tempDeck);
@@ -140,6 +156,8 @@ namespace CardGame.Managers
                 cardController.SetDataContainer(loadedList[i]);
                 _cards.Add(cardController);
             }
+
+            AdjustGridToScreen();
         }
 
         void CleanCards()
@@ -249,60 +267,96 @@ namespace CardGame.Managers
                 saveLoadManager.SaveDataProcess(ConstHelper.CARD_MANAGER_KEY, model);
             }
         }
-    }
 
-    [System.Serializable]
-    public class DeckValue
-    {
-        public DeckName DeckName;
-        [SerializeField] CardDataContainerSO[] _cardDataContainers;
-
-        public CardDataContainerSO[] CardDataContainers { get; set; }
-
-        public CardDataContainerSO[] GetCardDataContainers(int count)
+        private void AdjustGridToScreen()
         {
-            if (CardDataContainers == null) CardDataContainers = _cardDataContainers;
+            if (_cards.Count == 0 || _mainCamera == null) return;
+            
+            float minX = float.MaxValue, maxX = float.MinValue;
+            float minY = float.MaxValue, maxY = float.MinValue;
 
-            if (CardDataContainers.Length < count) count = Mathf.Max(CardDataContainers.Length - 1, 0);
-
-            List<CardDataContainerSO> tempList = new List<CardDataContainerSO>(count);
-
-            while (tempList.Count < count)
+            foreach (var card in _cards)
             {
-                var randomIndex = Random.Range(0, count);
-                var cardData = CardDataContainers[randomIndex];
-
-                while (tempList.Contains(cardData))
-                {
-                    randomIndex = Random.Range(0, count);
-                    cardData = CardDataContainers[randomIndex];
-                }
-
-                tempList.Add(cardData);
+                Bounds bounds = card.GetBounds();
+                minX = Mathf.Min(minX, bounds.min.x);
+                maxX = Mathf.Max(maxX, bounds.max.x);
+                minY = Mathf.Min(minY, bounds.min.y);
+                maxY = Mathf.Max(maxY, bounds.max.y);
             }
 
-            return tempList.ToArray();
+            float gridWidth = maxX - minX;
+            float gridHeight = maxY - minY;
+            
+            float aspect = (float)Screen.width / Screen.height;
+            float viewHeight = 2f * _mainCamera.orthographicSize;
+            float viewWidth = viewHeight * aspect;
+            
+            viewWidth *= (1f - _screenMargin);
+            viewHeight *= (1f - _screenMargin);
+            
+            float scaleX = viewWidth / gridWidth;
+            float scaleY = viewHeight / gridHeight;
+            float scale = Mathf.Min(scaleX, scaleY);
+            
+            _transform.localScale = new Vector3(scale, scale, 1f);
+            
+            Vector3 gridCenter = new Vector3((minX + maxX) / 2f, (minY + maxY) / 2f, 0f);
+            _mainCamera.transform.position = new Vector3(gridCenter.x, gridCenter.y, _mainCamera.transform.position.z);
         }
+    }
+}
 
-        public CardDataContainerSO GetDataContainerByType(CardType cardType)
+[System.Serializable]
+public class DeckValue
+{
+    public DeckName DeckName;
+    [SerializeField] CardDataContainerSO[] _cardDataContainers;
+
+    public CardDataContainerSO[] CardDataContainers { get; set; }
+
+    public CardDataContainerSO[] GetCardDataContainers(int count)
+    {
+        if (CardDataContainers == null) CardDataContainers = _cardDataContainers;
+
+        if (CardDataContainers.Length < count) count = Mathf.Max(CardDataContainers.Length - 1, 0);
+
+        List<CardDataContainerSO> tempList = new List<CardDataContainerSO>(count);
+
+        while (tempList.Count < count)
         {
-            return _cardDataContainers.FirstOrDefault(x => x.CardType == cardType);
+            var randomIndex = Random.Range(0, count);
+            var cardData = CardDataContainers[randomIndex];
+
+            while (tempList.Contains(cardData))
+            {
+                randomIndex = Random.Range(0, count);
+                cardData = CardDataContainers[randomIndex];
+            }
+
+            tempList.Add(cardData);
         }
+
+        return tempList.ToArray();
     }
 
-    public class DeckDataModel
+    public CardDataContainerSO GetDataContainerByType(CardType cardType)
     {
-        public DeckName DeckName;
-        public int PlayerPlayCount;
-        public int CurrentCombo;
-        public int CurrentScore;
-        public List<CardDataModel> CardDataModels;
+        return _cardDataContainers.FirstOrDefault(x => x.CardType == cardType);
     }
+}
 
-    public class CardDataModel
-    {
-        public float XPosition;
-        public float YPosition;
-        public CardType CardType;
-    }
+public class DeckDataModel
+{
+    public DeckName DeckName;
+    public int PlayerPlayCount;
+    public int CurrentCombo;
+    public int CurrentScore;
+    public List<CardDataModel> CardDataModels;
+}
+
+public class CardDataModel
+{
+    public float XPosition;
+    public float YPosition;
+    public CardType CardType;
 }

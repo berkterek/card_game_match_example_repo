@@ -71,5 +71,7 @@ namespace CardGame.Controllers
 
             _transform.rotation = endRotation;
         }
+
+        public Bounds GetBounds() => _bodySpriteRenderer.bounds;
     }
 }
