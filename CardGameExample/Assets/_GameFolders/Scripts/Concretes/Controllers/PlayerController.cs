@@ -1,8 +1,10 @@
+using System.Collections;
 using CardGame.Abstracts.Controllers;
 using CardGame.Abstracts.Handlers;
 using CardGame.Abstracts.Inputs;
 using CardGame.Handlers;
 using CardGame.Inputs;
+using CardGame.Managers;
 using UnityEngine;
 
 namespace CardGame.Controllers
@@ -25,6 +27,13 @@ namespace CardGame.Controllers
             Camera = Camera.main;
             InputReader = new InputReader();
             WorldPositionHandler = new WorldPositionWithPhysicsHandler(this);
+        }
+
+        IEnumerator Start()
+        {
+            while (GameManager.Instance == null) yield return null;
+            
+            GameManager.Instance.Init(this);
         }
 
         public void Update()

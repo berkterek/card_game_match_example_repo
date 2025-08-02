@@ -10,5 +10,7 @@ namespace CardGame.Abstracts.Controllers
         LayerMask LayerMask { get; }
         int CurrentScore { get; }
         void ResetTotalValue();
+        void PlayerCanPlay();
+        void PlayerCantPlay();
     }
 }

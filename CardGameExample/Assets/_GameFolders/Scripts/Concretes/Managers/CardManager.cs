@@ -139,12 +139,7 @@ namespace CardGame.Managers
             }
         }
 
-        public void FlipAllCards()
-        {
-            StartCoroutine(FlipAllCardsCoroutine());
-        }
-
-        private IEnumerator FlipAllCardsCoroutine()
+        public IEnumerator FlipAllCardsCoroutine()
         {
             foreach (var cardController in _cards)
             {
